@@ -1,0 +1,25 @@
+{
+	"name": "weprovide/symfony-config-bundle",
+	"description": "The We Provide Config Bundle for Symfony adds an interface into the Sonata/AdminBundle in which you can configure application parameters.",
+	"type": "symfony-bundle",
+	"authors": [
+		{
+			"name": "Mischa Braam",
+			"email": "mischa@weprovide.com"
+		}
+	],
+	"keywords": [
+		"config",
+		"weprovide",
+		"settings",
+		"sonata"
+	],
+	"license": [
+		"MIT"
+	],
+	"autoload": {
+		"psr-4": {
+			"WeProvide\\ConfigBundle\\": ""
+		}
+	}
+}

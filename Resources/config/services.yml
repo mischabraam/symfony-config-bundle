@@ -1,0 +1,32 @@
+services:
+
+    we_provide_config.admin.config_variable:
+        class: WeProvide\ConfigBundle\Admin\ConfigVariableAdmin
+        arguments: [~, WeProvide\ConfigBundle\Entity\ConfigVariable, WeProvideConfigBundle:BaseAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: "Config Variable", label_catalogue: "WeProvideConfigBundle" }
+        public: true
+        calls:
+            - [addChild, ['@we_provide_config.admin.config_variable_choice']]
+
+    we_provide_config.admin.config_variable_choice:
+        class: WeProvide\ConfigBundle\Admin\ConfigVariableChoiceAdmin
+        arguments: [~, WeProvide\ConfigBundle\Entity\ConfigVariableChoice, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: "Config Variable Choice", label_catalogue: "WeProvideConfigBundle", show_in_dashboard: false }
+        public: true
+
+    we_provide_config.admin.config_value:
+        class: WeProvide\ConfigBundle\Admin\ConfigValueAdmin
+        arguments: [~, WeProvide\ConfigBundle\Entity\ConfigValue, WeProvideConfigBundle:BaseAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Config, label: "Config Value", label_catalogue: "WeProvideConfigBundle" }
+        public: true
+
+
+
+    we_provide_config.cache.clearer:
+        class: WeProvide\ConfigBundle\Cache\CacheClearer
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: kernel.cache_clearer, priority: 0 }

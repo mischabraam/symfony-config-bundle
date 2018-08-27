@@ -1,0 +1,29 @@
+WeProvide\ConfigBundle\Entity\ConfigValue:
+    type: entity
+    table: wp_config_value
+    repositoryClass: WeProvide\ConfigBundle\Repository\ConfigValueRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        value:
+            type: string
+            length: 255
+            nullable: true
+    lifecycleCallbacks: {  }
+    oneToOne:
+        configVariable:
+            targetEntity: ConfigVariable
+            joinColumn:
+                name: config_variable_id
+                referencedColumnName: id
+                nullable: false
+        configVariableChoice:
+            targetEntity: ConfigVariableChoice
+            joinColumn:
+                name: config_variable_choice_id
+                referencedColumnName: id
+

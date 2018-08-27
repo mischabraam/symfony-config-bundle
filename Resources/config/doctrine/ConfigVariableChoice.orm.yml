@@ -1,0 +1,26 @@
+WeProvide\ConfigBundle\Entity\ConfigVariableChoice:
+    type: entity
+    table: wp_config_variable_choice
+    repositoryClass: WeProvide\ConfigBundle\Repository\ConfigVariableChoiceRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        value:
+            type: string
+            length: 255
+        position:
+            type: integer
+    lifecycleCallbacks: {  }
+    manyToOne:
+        configVariable:
+            targetEntity: ConfigVariable
+            inversedBy: choices
+            joinColumn:
+                name: config_variable_id
+                referencedColumnName: id
+                onDelete: cascade
+                nullable: false

@@ -1,0 +1,15 @@
+WeProvide\ConfigBundle\Entity\ConfigCache:
+    type: entity
+    table: wp_config_cache
+    repositoryClass: WeProvide\ConfigBundle\Repository\ConfigCacheRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        valid:
+            type: boolean
+            unique: true
+    lifecycleCallbacks: {  }

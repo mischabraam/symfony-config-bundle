@@ -1,0 +1,28 @@
+WeProvide\ConfigBundle\Entity\ConfigVariable:
+    type: entity
+    table: wp_config_variable
+    repositoryClass: WeProvide\ConfigBundle\Repository\ConfigVariableRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+        description:
+            type: string
+            length: 255
+        type:
+            type: smallint
+    lifecycleCallbacks: {  }
+    oneToMany:
+        choices:
+            targetEntity: ConfigVariableChoice
+            mappedBy: configVariable
+            cascade: ["persist", "remove"]
+            orphanRemoval: true
+            orderBy: { 'position': 'ASC' }
