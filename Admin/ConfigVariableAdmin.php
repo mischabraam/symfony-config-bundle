@@ -11,7 +11,6 @@ use WeProvide\ConfigBundle\Entity\ConfigVariable;
 
 class ConfigVariableAdmin extends BaseAdmin
 {
-    // TODO: name of config value is unique in database, prevent throw of exception when duplicate name is inserted
     // TODO: maybe add filters, currently disabled
     // TODO: when inserting and type is changed to or from 'choice' show or hide the choices sub-entity (ConfigVariableChoice)
 
@@ -52,7 +51,9 @@ class ConfigVariableAdmin extends BaseAdmin
 
         $formMapper
             ->add('name')
-            ->add('description');
+            ->add('description', null, array(
+                'required' => false,
+            ));
 
         if ($configVariable->getId() === null) {
             $formMapper
@@ -107,6 +108,16 @@ class ConfigVariableAdmin extends BaseAdmin
      */
     public function validate(ErrorElement $errorElement, $configVariable)
     {
+        // Is name unique?
+        $other = $this->modelManager->findOneBy($this->getClass(), array('name' => $configVariable->getName()));
+        if (null !== $other && $other->getId() != $configVariable->getId()) {
+            $errorElement
+                ->with('name')
+                ->addViolation('The name field must be unique')
+                ->end();
+        }
+
+        // Name according to Symfony's naming conventions?
         if (!$configVariable->hasValidName()) {
             $errorElement
                 ->with('name')
